@@ -10,9 +10,9 @@
    def main_menu
      # #2
      puts "Main Menu - #{address_book.entries.count} entries"
+     puts "0 - Search for an entry"
      puts "1 - View all entries"
      puts "2 - Create an entry"
-     puts "3 - Search for an entry"
      puts "4 - Import entries from a CSV"
      puts "5 - Exit"
      print "Enter your selection: "
@@ -20,6 +20,10 @@
      # #3
      selection = gets.to_i
      case selection
+      when 0
+        system "clear"
+        select_entry
+        main_menu
       when 1
         system "clear"
         view_all_entries
@@ -47,6 +51,19 @@
         main_menu
       end
     end
+
+    def select_entry
+      puts "Enter index of entry"
+      entry = gets.to_i - 1
+      if address_book.entries[entry] 
+        puts address_book.entries[entry]
+      else
+        puts "Wrong index enter a new one"
+        select_entry
+      end
+      entry_submenu(entry)
+    end
+
 
     def view_all_entries
       address_book.entries.each do |entry|
